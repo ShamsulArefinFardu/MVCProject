@@ -1,0 +1,116 @@
+﻿@model MVCProject_ArefinFardu.Models.ViewModel.SupplierVM
+
+@{
+    ViewBag.Title = "Index";
+
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    //Layout = "~/Areas/Admin/Views/Shared/_MyLayout.cshtml";
+
+
+}
+
+<h2>Index</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</head>
+
+<body>
+    <section class="contact-info">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-info">
+                        <p><a href="@Url.Action("Create","Supplier")" class="btn btn-info">Create Supplier</a></p>
+                        <table id="tableInfo" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>Email</th>
+                                    <th>PhoneNo</th>
+                                    <th>Update</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <input type="hidden" id="hiddenID" />
+    <div id="delModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Delete Information
+                </div>
+                <div class="modal-body">
+                    <h3>Are you sure?</h3>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" onclick="hideModal()" class="btn btn-default">Cancel</a>
+                    <a href="#" onclick="Delete()" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var ConfirmDel = function (conID) {
+            $('#hiddenID').val(conID);
+            $('#delModal').modal('show');
+        }
+
+        var hideModal = function () {
+            $('#delModal').modal('hide');
+        }
+
+        var Delete = function () {
+            var id = $('#hiddenID').val();
+            $.ajax({
+                url: '/Supplier/Delete/',
+                data: { delId: id },
+                type: 'POST',
+                success: function (data) {
+                    $('#delModal').modal('hide');
+                    $('#row_' + id).remove();
+                }
+            });
+        }
+
+        $.ajax({
+            url: '@Url.Action("GetSupplier", "Supplier")',
+            type: 'GET',
+            success: function (data) {
+                $('#tableInfo tbody').empty();
+                $.each(data, function (index, row) {
+                    var html;
+                    html = "<tr id='row_"+row.id+"'>";
+                    html += "<td>" + row.name + "</td>";
+                    html += "<td>" + row.address + "</td>";
+                    html += "<td>" + row.email + "</td>";
+                    html += "<td>" + row.phoneno + "</td>";
+                    html += "<td><a href='/Supplier/Edit?id="+row.id+"' class='btn btn-info'>Edit</a></td>";
+                    html += "<td><a href='#' onclick='ConfirmDel(" + row.id + ")' class='btn btn-danger'>Delete</a></td>";
+                    html += "</tr>";
+                    $('#tableInfo tbody').append(html);
+                });
+
+            }
+        });
+    </script>
+</body>
+</html>
+

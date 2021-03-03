@@ -1,0 +1,19 @@
+﻿@model IEnumerable<MVCProject_ArefinFardu.Models.Customer>
+@{
+    ViewBag.Title = "Partial_Test";
+
+    Layout = "~/Areas/Admin/Views/Shared/_MyLayout.cshtml";
+
+
+    //Layout = "~/Views/Shared/_Admin.cshtml";
+
+}
+
+<h2>All Customer Details View</h2>
+
+
+@foreach (var item in Model)
+{
+    @Html.Partial("_Customer", item)
+}
+

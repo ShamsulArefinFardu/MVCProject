@@ -1,0 +1,66 @@
+﻿@model PagedList.IPagedList<MVCProject_ArefinFardu.Models.Category>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+
+    Layout = "~/Areas/Admin/Views/Shared/_MyLayout.cshtml";
+
+
+    //Layout = "~/Views/Shared/_Admin.cshtml";
+
+
+    //Layout = "~/Areas/Admin/Views/Shared/_MyLayout.cshtml";
+
+}
+
+<h2>Index</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div>
+    @using (Html.BeginForm())
+    {
+        <p>
+            Find By Category Name: @Html.TextBox("searchString")
+            <input type="submit" value="Search" />
+        </p>
+    }
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.ActionLink("CategoryName", "Index", new { sortOrder = ViewBag.NameSortParam })
+            </th>            
+            
+            <th>Description</th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CategoryId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CategoryId })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <br />
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+   new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }
+   ))
+</div>
+
+

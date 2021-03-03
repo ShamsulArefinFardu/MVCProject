@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bceeba21878f4cdd98e8a1f867d92f12" Name="Diagram1">
+        <EntityTypeShape EntityType="MVCProject_ArefinFarduModel.Customer" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MVCProject_ArefinFarduModel.Supplier" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MVCProject_ArefinFarduModel.Category" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="MVCProject_ArefinFarduModel.Product" Width="1.5" PointX="3" PointY="3.5" />
+        <AssociationConnector Association="MVCProject_ArefinFarduModel.FK__Product__Categor__6FE99F9F" />
+        <EntityTypeShape EntityType="MVCProject_ArefinFarduModel.Employee" Width="1.5" PointX="5.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
